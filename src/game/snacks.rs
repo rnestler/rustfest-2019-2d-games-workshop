@@ -12,6 +12,8 @@ pub struct Snack {
     location: Point2,
     velocity: Vector2,
     w: f32,
+    shake_phase: f32,
+    shake_amp: f32,
     active: bool,
 }
 
@@ -24,19 +26,16 @@ impl Snack {
             ),
             velocity: Vector2::new(0.0, rand::random::<f32>() * 2.0 + 0.1),
             w: SNACK_W,
+            shake_phase: rand::random::<f32>(),
+            shake_amp: rand::random::<f32>() * 5.0,
             active: true,
         };
         s
     }
 
     pub fn update(&mut self) -> GameResult<&Self> {
-        /*
-         * TODO:
-         * 1. Move snack down
-         * 2. Set active to false if the snack has left the screen
-         * 3. If not active, reset the snack
-         */
         self.location += self.velocity;
+        self.velocity.x = (self.location.y * 0.1 + self.shake_phase).sin() * self.shake_amp;
         if !self.active || self.location.y > SCREEN_H {
             *self = Snack::new();
         }
