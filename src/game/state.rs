@@ -62,10 +62,19 @@ impl State {
             self.assets.font,
             38.0,
         ));
-        /*
-         * TODO:
-         * Display the scores on the screen!
-         */
+
+        graphics::draw(
+            ctx,
+            &score_1,
+            graphics::DrawParam::new().dest(Point2::new(10.0, 10.0)),
+        )?;
+
+        graphics::draw(
+            ctx,
+            &score_2,
+            graphics::DrawParam::new().dest(Point2::new(self.screen_width - 180.0, 10.0)),
+        )?;
+
         Ok(self)
     }
 
