@@ -36,7 +36,7 @@ impl Snack {
          * 2. Set active to false if the snack has left the screen
          * 3. If not active, reset the snack
          */
-        self.location.y += self.velocity.y;
+        self.location += self.velocity;
         if !self.active || self.location.y > SCREEN_H {
             *self = Snack::new();
         }
@@ -52,11 +52,14 @@ impl Snack {
     }
 
     pub fn collides_with(&mut self, other: Point2) -> bool {
-        self.active
-            && other.x >= self.location.x
-            && other.x <= self.location.x + self.w
-            && other.y >= self.location.y
-            && other.y <= self.location.y + self.w
+        if self.active {
+            let distance = self.location - other;
+            if distance.norm() < self.w {
+                self.active = false;
+                return true;
+            }
+        }
+        false
     }
 }
 
