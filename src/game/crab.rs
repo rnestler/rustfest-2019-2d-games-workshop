@@ -1,18 +1,17 @@
-use ggez::{Context, GameResult};
 use ggez::graphics;
+use ggez::{Context, GameResult};
 use nalgebra as na;
 
 type Point2 = na::Point2<f32>;
 type Vector2 = na::Vector2<f32>;
 
-use crate::game::config::{CRAB_W,
-                          CRAB_S};
+use crate::game::config::{CRAB_S, CRAB_W};
 
 pub struct Crab {
     pub location: Point2,
     velocity: Vector2,
     w: f32,
-    s: f32
+    s: f32,
 }
 
 impl Crab {
@@ -21,22 +20,27 @@ impl Crab {
             location,
             velocity: Vector2::new(CRAB_S, 0.0),
             w: CRAB_W,
-            s: CRAB_S
+            s: CRAB_S,
         };
         Ok(c)
     }
 
     pub fn update(&mut self, max_screen: f32) -> GameResult<&Self> {
-        /*
-        * TODO: Move crab left to right
-        */
+        self.location.x += self.velocity.x;
+        if self.location.x + (self.w * 2.0) > max_screen {
+            self.velocity.x = -self.s;
+        } else if self.location.x < self.w {
+            self.velocity.x = self.s;
+        }
         Ok(self)
     }
 
     pub fn draw(&self, ctx: &mut Context, img: &graphics::Image) -> GameResult<&Self> {
-        /*
-        * TODO: Draw crab image
-        */
+        let drawparam = graphics::DrawParam::new()
+            .dest(self.location)
+            .scale(Vector2::new(0.2, 0.2));
+        graphics::draw(ctx, img, drawparam)?;
+
         Ok(self)
     }
 }
