@@ -45,11 +45,6 @@ impl Claw {
     }
 
     pub fn draw(&self, ctx: &mut Context, img: &graphics::Image) -> GameResult<&Self> {
-        /*
-         * TODO:
-         * 1. Draw a pure red line from the body to the claw
-         * 2. Draw the claw image
-         */
         let red_color = graphics::Color::new(1.0, 0.0, 0.0, 1.0);
 
         let body_location = self.location + self.body_anchor;
