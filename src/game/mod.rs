@@ -52,14 +52,37 @@ impl EventHandler for State {
         Ok(())
     }
 
-    fn key_up_event(
-        &mut self,
-        _ctx: &mut Context,
-        keycode: KeyCode,
-        _keymod: KeyMods
-    ) {
+    fn key_up_event(&mut self, _ctx: &mut Context, keycode: KeyCode, _keymod: KeyMods) {
+        match keycode {
+            KeyCode::W => {
+                println!("W");
+            }
+            KeyCode::A => {
+                println!("A");
+            }
+            KeyCode::S => {
+                println!("S");
+            }
+            KeyCode::D => {
+                println!("D");
+            }
+
+            KeyCode::I => {
+                println!("I");
+            }
+            KeyCode::J => {
+                println!("J");
+            }
+            KeyCode::K => {
+                println!("K");
+            }
+            KeyCode::L => {
+                println!("L");
+            }
+            _ => {}
+        }
         /*
-        * TODO: Provide 2 key matches. One for player 1 and the other for player 2
-        */
+         * TODO: Provide 2 key matches. One for player 1 and the other for player 2
+         */
     }
 }
