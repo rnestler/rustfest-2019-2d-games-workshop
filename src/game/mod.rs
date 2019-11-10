@@ -4,17 +4,17 @@ use ggez::graphics;
 use ggez::{Context, GameResult};
 use nalgebra as na;
 
+mod claw;
 mod config;
-mod state;
 mod crab;
 mod player;
-mod claw;
-use crate::game::claw::{Directions};
+mod state;
+use crate::game::claw::Directions;
 mod assets;
 mod snacks;
 
-pub use crate::game::state::{State};
-pub use crate::game::config::{SCREEN_W, SCREEN_H};
+pub use crate::game::config::{SCREEN_H, SCREEN_W};
+pub use crate::game::state::State;
 
 type Point2 = na::Point2<f32>;
 
@@ -28,15 +28,18 @@ impl EventHandler for State {
         self.player2.update(self.crab.location)?;
         self.collision_check();
         /*
-        * TODO: Play the background music
-        */
+         * TODO: Play the background music
+         */
         Ok(())
     }
     fn draw(&mut self, ctx: &mut Context) -> GameResult {
         graphics::clear(ctx, graphics::WHITE);
-        /*
-        * TODO: Draw the background
-        */
+        graphics::draw(
+            ctx,
+            &self.assets.bg_image,
+            graphics::DrawParam::new().dest(Point2::new(0.0, 0.0)),
+        )?;
+
         for s in self.snacks.iter() {
             s.draw(ctx, &self.assets.snack_image)?;
         }
