@@ -55,34 +55,31 @@ impl EventHandler for State {
     fn key_up_event(&mut self, _ctx: &mut Context, keycode: KeyCode, _keymod: KeyMods) {
         match keycode {
             KeyCode::W => {
-                println!("W");
+                self.player1.movedir(Directions::Up);
             }
             KeyCode::A => {
-                println!("A");
+                self.player1.movedir(Directions::Left);
             }
             KeyCode::S => {
-                println!("S");
+                self.player1.movedir(Directions::Down);
             }
             KeyCode::D => {
-                println!("D");
+                self.player1.movedir(Directions::Right);
             }
 
             KeyCode::I => {
-                println!("I");
+                self.player2.movedir(Directions::Up);
             }
             KeyCode::J => {
-                println!("J");
+                self.player2.movedir(Directions::Left);
             }
             KeyCode::K => {
-                println!("K");
+                self.player2.movedir(Directions::Down);
             }
             KeyCode::L => {
-                println!("L");
+                self.player2.movedir(Directions::Right);
             }
             _ => {}
         }
-        /*
-         * TODO: Provide 2 key matches. One for player 1 and the other for player 2
-         */
     }
 }
