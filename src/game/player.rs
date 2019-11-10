@@ -34,9 +34,8 @@ impl Player {
         Ok(self)
     }
 
-    pub fn increase_score(&mut self) -> GameResult<&Self> {
+    pub fn increase_score(&mut self) {
         self.score += 1;
-        Ok(self)
     }
 
     pub fn movedir(&mut self, dir: Directions) {

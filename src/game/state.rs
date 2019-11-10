@@ -1,6 +1,6 @@
+use ggez::audio::SoundSource;
 use ggez::graphics;
 use ggez::{Context, GameResult};
-use ggez::audio::SoundSource;
 use nalgebra as na;
 
 type Point2 = na::Point2<f32>;
@@ -72,12 +72,16 @@ impl State {
     pub fn collision_check(&mut self) {
         let c1 = self.player1.claw.get_origin();
         let c2 = self.player2.claw.get_origin();
-        /*
-         * TODO:
-         * Loop over the snacks and check whether they've collided with either claw!
-         * If it collides with either:
-         * 1. Play the sound
-         * 2. Increase player's score
-         */
+
+        for snack in &mut self.snacks {
+            if snack.collides_with(c1) {
+                let _ = self.assets.snap_sound.play();
+                self.player1.increase_score();
+            }
+            if snack.collides_with(c2) {
+                let _ = self.assets.snap_sound.play();
+                self.player2.increase_score();
+            }
+        }
     }
 }
