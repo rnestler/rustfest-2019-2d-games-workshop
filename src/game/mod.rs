@@ -27,9 +27,11 @@ impl EventHandler for State {
         self.player1.update(self.crab.location)?;
         self.player2.update(self.crab.location)?;
         self.collision_check();
-        /*
-         * TODO: Play the background music
-         */
+
+        // loop the bg sound
+        if !self.assets.bg_sound.playing() {
+            let _ = self.assets.bg_sound.play();
+        }
         Ok(())
     }
     fn draw(&mut self, ctx: &mut Context) -> GameResult {
